@@ -8,4 +8,7 @@ The objective is to avoid the bricks by steering the space ship (accelerometer) 
 The ship moves by itself. It is quite fast.
 
 Note: This game uses CoreMotion, so it's definitely not simulator-friendly.
+
 Note #2: There are probably no bricks in space. 
+
+Note #3: Several features still coming up.
