@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>11E47B79-F4E6-420D-A88E-A5BBFA033182</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SpaceBrix</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FE7DE6B246124642D9410F55B205404BC28FA114</key>
+		<string>https://github.com/killtheheron/SpaceBrix.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SpaceBrix.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FE7DE6B246124642D9410F55B205404BC28FA114</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/killtheheron/SpaceBrix.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FE7DE6B246124642D9410F55B205404BC28FA114</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FE7DE6B246124642D9410F55B205404BC28FA114</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SpaceBrix</string>
+		</dict>
+	</array>
+</dict>
+</plist>

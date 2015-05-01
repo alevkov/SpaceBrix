@@ -50,7 +50,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	var BrickDropAndRemove		= SKAction()
 	var Tilt					= SKAction()
 	
-	var destX	: CGFloat = 0.0
+	var destX		: CGFloat = 0.0
 	var endgame     = false
 	var shipCrashed = false
 	
@@ -293,7 +293,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	
 	func spawnObstacle(moving: Bool) {
 		let barPair = SKNode()
-		barPair.position = CGPointMake(CGRectGetMinX(self.frame) + (barLongTexture.size().width / 4) + CGFloat(arc4random() % UInt32(self.view!.frame.width / 5)), CGRectGetMidY(self.frame))
+		barPair.position = CGPointMake(CGRectGetMinX(self.frame) + (barLongTexture.size().width / 4) + CGFloat(arc4random() % UInt32(self.view!.frame.width / 4.5)), CGRectGetMidY(self.frame))
 		barPair.zPosition = -10
 		
 		let barRight = SKSpriteNode(imageNamed: "Bar1")
