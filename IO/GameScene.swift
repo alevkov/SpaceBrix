@@ -17,9 +17,10 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	let offsetY = 4 as CGFloat
 	let MOTION_SCALE					= 100.0		as Double
 	let MOTION_THRESHOLD				= 0.0001	as Double
-	let WORLD_GRAVITY_VECTOR_Y			= -5.0		as CGFloat
-	let FAR_BACKGROUND_SPEED_FACTOR		= 800		as CGFloat
-	let NEAR_BACKGROUND_SPEED_FACTOR	= 200		as CGFloat
+	var WORLD_GRAVITY_VECTOR_Y			= -5.0		as CGFloat
+	var NEAR_BACKGROUND_SPEED_FACTOR	= 200		as CGFloat
+	var SPAWN_OBSTACLE_SPEED_FACTOR     = 2			as CGFloat
+	var SPAWN_OBSTACLE_DELAY			= 1.4		as CGFloat
 	let OBSTACLE_GAP_SIZE				= 100		as CGFloat
 	
 	/* Bitmask categories */
@@ -107,17 +108,32 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	
 	func scrollBackground() { // called every frame
 		/* Foreground */
-		background1.position.y = background1.position.y - self.view!.frame.size.height / NEAR_BACKGROUND_SPEED_FACTOR
-		background2.position.y = background2.position.y - self.view!.frame.size.height / NEAR_BACKGROUND_SPEED_FACTOR
+		if NEAR_BACKGROUND_SPEED_FACTOR == 200 {
+			background1.position.y = background1.position.y - self.view!.frame.size.height / NEAR_BACKGROUND_SPEED_FACTOR
+			background2.position.y = background2.position.y - self.view!.frame.size.height / NEAR_BACKGROUND_SPEED_FACTOR
 		
-		if background2.position.y > (self.view!.frame.midY - 1) && background2.position.y < (self.view!.frame.midY + 1) {
-			background1.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + background1.size.height)
-			background2.position  = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame))
-		}
+			if background2.position.y > (self.view!.frame.midY - 1) && background2.position.y < (self.view!.frame.midY + 1) {
+				background1.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + background1.size.height)
+				background2.position  = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame))
+			}
 		
-		if background1.position.y > (self.view!.frame.midY - 1) && background2.position.y < (self.view!.frame.midY + 1) {
-			background2.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + background1.size.height)
-			background1.position  = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame))
+			if background1.position.y > (self.view!.frame.midY - 1) && background2.position.y < (self.view!.frame.midY + 1) {
+				background2.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + background1.size.height)
+				background1.position  = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame))
+			}
+		} else if NEAR_BACKGROUND_SPEED_FACTOR == 500 {
+			background1.position.y = background1.position.y - self.view!.frame.size.height / NEAR_BACKGROUND_SPEED_FACTOR
+			background2.position.y = background2.position.y - self.view!.frame.size.height / NEAR_BACKGROUND_SPEED_FACTOR
+			
+			if background2.position.y > (self.view!.frame.midY - 1) && background2.position.y < (self.view!.frame.midY + 1) {
+				background1.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + background1.size.height)
+				background2.position  = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame))
+			}
+			
+			if background1.position.y > (self.view!.frame.midY - 1) && background2.position.y < (self.view!.frame.midY + 1) {
+				background2.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + background1.size.height)
+				background1.position  = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame))
+			}
 		}
 	}
 	
@@ -184,6 +200,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 			
 			case barCategory | shipCategory:
 				if !shipCrashed {
+					ship!.explode()
 					self.gameOver()
 				}
 				shipCrashed = true
@@ -191,6 +208,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 			
 			case brickCategory | shipCategory:
 				if !shipCrashed {
+					ship!.explode()
 					self.gameOver()
 				}
 				shipCrashed = true
@@ -252,7 +270,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		/* Bars */
 		
 		let distanceToMove = CGFloat(self.frame.size.height + barLongTexture.size().width)
-		let moveBar		   = SKAction.moveByX(0.0, y: -distanceToMove, duration: NSTimeInterval(0.01 * distanceToMove / 2))
+		let moveBar		   = SKAction.moveByX(0.0, y: -distanceToMove, duration: NSTimeInterval(0.01 * distanceToMove / SPAWN_OBSTACLE_SPEED_FACTOR))
 		let removeBar      = SKAction.removeFromParent()
 		
 		ObstactleMoveAndRemove = SKAction.sequence([moveBar, removeBar])
@@ -264,7 +282,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 				self.spawnObstacle(true)
 			}
 		}
-		let delay = SKAction.waitForDuration(NSTimeInterval(1.4))
+		let delay = SKAction.waitForDuration(NSTimeInterval(SPAWN_OBSTACLE_DELAY))
 		let spawnThenDelay = SKAction.sequence([spawn, delay])
 		let spawnThenDelayForeverAndEverForAllEternity = SKAction.repeatActionForever(spawnThenDelay)
 		self.runAction(spawnThenDelayForeverAndEverForAllEternity)
@@ -380,8 +398,10 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
 		
 		for _ in touches {
-			/* accelerate ship again when player releases touch */
-			acceleration = start(selector: "accelerateShip", interval: 0.01)
+			if !endgame {
+				/* accelerate ship again when player releases touch */
+				acceleration = start(selector: "accelerateShip", interval: 0.01)
+			}
 		}
 	}
 	
@@ -410,44 +430,27 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	
 	func accelerateShip() {
 		ship!.physicsBody?.velocity = CGVectorMake(0, 1)
-		ship!.physicsBody?.applyImpulse(CGVectorMake(0, 55))
+		ship!.physicsBody?.applyImpulse(CGVectorMake(0, 50))
 	}
 
 	// =========================================
 	
 	func gameOver() {
-		endgame = true
+		self.endgame = true
 		
-		GameState.sharedInstance.highScore = max(GameState.sharedInstance.score,
-												 GameState.sharedInstance.highScore)
+		SPAWN_OBSTACLE_SPEED_FACTOR = 0.03
+		SPAWN_OBSTACLE_DELAY = 3
+		NEAR_BACKGROUND_SPEED_FACTOR = 500
+		
+		self.shakeShipAndShowScore()
+		
+		GameState.sharedInstance.highScore = max(GameState.sharedInstance.score, GameState.sharedInstance.highScore)
 		GameState.sharedInstance.save()
+		
+		ship!.physicsBody!.allowsRotation = true
+		ship?.physicsBody!.applyAngularImpulse(50)
+		acceleration.invalidate()
 
-		let gameOver				= SKLabelNode()
-		let score					= SKLabelNode()
-		let highscore				= SKLabelNode()
-		
-		gameOver.fontName			= "8BIT WONDER Nominal"
-		gameOver.text				= "BEST  \(GameState.sharedInstance.highScore)"
-		gameOver.fontColor			= UIColor(hex: 0xFF007F, alpha: 0.8)
-		gameOver.fontSize			= 40
-		gameOver.position			= CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 50)
-		self.addChild(gameOver)
-		
-		let gameOverDropShadow		= gameOver.createDropShadow(2)
-		gameOverDropShadow.fontColor = UIColor(hex: 0x7F00FF, alpha: 0.8)
-		self.addChild(gameOverDropShadow)
-		
-		
-		reset.fontName				= "8BIT WONDER Nominal"
-		reset.text					= "RETRY"
-		reset.fontColor				= UIColor(hex: 0x05CCFF, alpha: 0.9)
-		reset.fontSize				= 35
-		reset.position				= CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 200)
-		self.addChild(reset)
-		
-		let resetShadow				= reset.createDropShadow(2)
-		resetShadow.fontColor = UIColor(hex: 0x05327F, alpha: 0.7)
-		self.addChild(resetShadow)
 	}
 	
 	func resetScene() {
@@ -462,6 +465,31 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		skView.presentScene(scene, transition: SKTransition.fadeWithColor(UIColor.whiteColor(), duration: 0.6))
 	}
 	
+	func shakeShipAndShowScore() {
+		let shake = SKAction.shake(ship!.position, duration: 1, amplitudeX: 5, amplitudeY: 5)
+		ship!.runAction(shake, completion: { () -> Void in
+			self.SPAWN_OBSTACLE_SPEED_FACTOR = 2
+			self.SPAWN_OBSTACLE_DELAY = 1.4
+			self.NEAR_BACKGROUND_SPEED_FACTOR = 200
+			
+			//gameOver.fontColor	= UIColor(hex: 0xFF007F, alpha: 0.8)
+	
+			//gameOverDropShadow.fontColor = UIColor(hex: 0x7F00FF, alpha: 0.8)
+			
+			
+			self.reset.fontName	 = "8BIT WONDER Nominal"
+			self.reset.text		 = "RETRY"
+			self.reset.fontColor = UIColor(hex: 0x05CCFF, alpha: 0.9)
+			self.reset.fontSize	 = 35
+			self.reset.position	 = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 200)
+			self.addChild(self.reset)
+			
+			let resetShadow				= self.reset.createDropShadow(2)
+			resetShadow.fontColor = UIColor(hex: 0x05327F, alpha: 0.7)
+			self.addChild(resetShadow)
+		})
+	}
+	
 	/* Update */
 	
 	// =========================================
@@ -472,6 +500,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		
 		if ship!.position.y < 0 {
 			if !shipCrashed {
+				ship!.explode()
 				self.gameOver()
 			}
 			shipCrashed = true

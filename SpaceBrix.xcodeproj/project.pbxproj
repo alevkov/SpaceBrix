@@ -24,7 +24,6 @@
 		3A8496C51ADCC0C1008B295E /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8496C41ADCC0C1008B295E /* SpriteKit.framework */; };
 		3A8496C71ADCC0CE008B295E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8496C61ADCC0CE008B295E /* CoreGraphics.framework */; };
 		3ABCBA9D1AAB934A008B5280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A83A4211AA79073008ACEBF /* Main.storyboard */; };
-		3AC9AE2E1AABEBFE00595EA8 /* Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC9AE2D1AABEBFE00595EA8 /* Light.swift */; };
 		3AC9AE311AABF18600595EA8 /* light.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9AE301AABF18600595EA8 /* light.atlas */; };
 		3AC9BD2D1AE2B09500AB71A4 /* explosion.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9BD2C1AE2B09500AB71A4 /* explosion.atlas */; };
 		3AC9BD301AE2F30A00AB71A4 /* 8bw.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9BD2E1AE2F0FA00AB71A4 /* 8bw.ttf */; };
@@ -66,7 +65,6 @@
 		3A8496C21ADCC0BC008B295E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		3A8496C41ADCC0C1008B295E /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		3A8496C61ADCC0CE008B295E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		3AC9AE2D1AABEBFE00595EA8 /* Light.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Light.swift; sourceTree = "<group>"; };
 		3AC9AE301AABF18600595EA8 /* light.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = light.atlas; path = ../light.atlas; sourceTree = "<group>"; };
 		3AC9BD2C1AE2B09500AB71A4 /* explosion.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = explosion.atlas; sourceTree = "<group>"; };
 		3AC9BD2E1AE2F0FA00AB71A4 /* 8bw.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8bw.ttf; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 		3AC9AE2F1AABEC0300595EA8 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				3AC9AE2D1AABEBFE00595EA8 /* Light.swift */,
 				3A82B7191AD355D5008BCF4E /* Ship.swift */,
 			);
 			name = Players;
@@ -342,7 +339,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AC9AE2E1AABEBFE00595EA8 /* Light.swift in Sources */,
 				3A82B71A1AD355D5008BCF4E /* Ship.swift in Sources */,
 				3A83A41E1AA79073008ACEBF /* GameScene.swift in Sources */,
 				3A8496C11ADC97B4008B295E /* MotionManager.swift in Sources */,
