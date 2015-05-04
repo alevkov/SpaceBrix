@@ -30,6 +30,7 @@
 		3AC9BD331AE341F100AB71A4 /* Stars.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9BD311AE341F100AB71A4 /* Stars.sks */; };
 		3AC9BD361AE342B600AB71A4 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9BD351AE342B600AB71A4 /* star.png */; };
 		3AC9BD381AE4225A00AB71A4 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC9BD371AE4225A00AB71A4 /* Levels.swift */; };
+		3ACD0C361AF6640900AF1CB9 /* thrust.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3ACD0C351AF6640900AF1CB9 /* thrust.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		3AC9BD311AE341F100AB71A4 /* Stars.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Stars.sks; path = ../Stars.sks; sourceTree = "<group>"; };
 		3AC9BD351AE342B600AB71A4 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = ../star.png; sourceTree = "<group>"; };
 		3AC9BD371AE4225A00AB71A4 /* Levels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
+		3ACD0C351AF6640900AF1CB9 /* thrust.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = thrust.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				3AC9BD311AE341F100AB71A4 /* Stars.sks */,
 				3AC9BD351AE342B600AB71A4 /* star.png */,
+				3ACD0C351AF6640900AF1CB9 /* thrust.atlas */,
 				3AC9BD2C1AE2B09500AB71A4 /* explosion.atlas */,
 				3AC9AE301AABF18600595EA8 /* light.atlas */,
 				3A2E6D581AC8C33A00783C46 /* automat.ttf */,
@@ -318,6 +321,7 @@
 				3A2E6D591AC8C34800783C46 /* automat.ttf in Resources */,
 				3ABCBA9D1AAB934A008B5280 /* Main.storyboard in Resources */,
 				3AC9AE311AABF18600595EA8 /* light.atlas in Resources */,
+				3ACD0C361AF6640900AF1CB9 /* thrust.atlas in Resources */,
 				3A2F126E1AAB48FF0036D459 /* trench.otf in Resources */,
 				3AC9BD331AE341F100AB71A4 /* Stars.sks in Resources */,
 				3A83A4251AA79073008ACEBF /* Images.xcassets in Resources */,

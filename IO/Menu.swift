@@ -12,10 +12,13 @@ import AVFoundation
 import CoreMotion
 
 final class Menu: SKScene {
+	var SCREEN_SIZE = UIScreen.mainScreen().bounds.size
+	
+	let audioPlayer	= AVAudioPlayer()
+	
 	let offsetX = 4 as CGFloat
 	let offsetY = 4 as CGFloat
 	
-	let audioPlayer	= AVAudioPlayer()
 	let logo		= SKLabelNode()
 	var logoDrop	: SKLabelNode!
 	
@@ -25,11 +28,10 @@ final class Menu: SKScene {
 	var moveTimer	: NSTimer!
 	
 	func makeDropShadowLogo() {
-		var size = UIScreen.mainScreen().bounds.size
-		var width = size.width
-		logo.fontName			= "8BIT WONDER Nominal"
-		logo.text				= "spacebrix"
-		logo.fontColor			= UIColor(hex: 0xFF007F, alpha: 0.5)
+		var width		= SCREEN_SIZE.width
+		logo.fontName	= "8BIT WONDER Nominal"
+		logo.text		= "spacebrix"
+		logo.fontColor	= UIColor(hex: 0xFF007F, alpha: 0.5)
 		
 		if width == 320 {
 			logo.fontSize = 35

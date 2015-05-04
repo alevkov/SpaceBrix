@@ -8,7 +8,7 @@
 
 import Foundation
 
-/* This sngtn variant uses a global, but its much cleaner
+/* This sngtn variant uses a global,but it's much cleaner
  * than using a struct */
 private let _sharedInstance = GameState.loadInstance()
 
@@ -57,13 +57,13 @@ final class GameState: NSObject, NSCoding {
 	}
 	
 	class func loadInstance() -> GameState {
-		var decodeData: NSData? = NSData(contentsOfFile: GameState.filePath() as String)
+		let decodeData: NSData? = NSData(contentsOfFile: GameState.filePath() as String)
 		if decodeData != nil {
 			/* What unarchiveObjectWithData: does here is to try to initialize
 			* a new GameState by invoking its initWithCoder: initializer
 			* with an NSCoder loaded with decodedData.
 			* */
-			var gameData = NSKeyedUnarchiver.unarchiveObjectWithData(decodeData!) as! GameState
+			let gameData = NSKeyedUnarchiver.unarchiveObjectWithData(decodeData!) as! GameState
 			
 			return gameData
 		}

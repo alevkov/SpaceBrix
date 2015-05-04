@@ -12,7 +12,7 @@ import CoreMotion
 
 final class GameScene: SKScene, SKPhysicsContactDelegate {
 	
-	/* Constants */
+	/* Numericals */
 	let offsetX = 4 as CGFloat
 	let offsetY = 4 as CGFloat
 	let MOTION_SCALE					= 100.0		as Double
@@ -22,6 +22,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	var SPAWN_OBSTACLE_SPEED_FACTOR     = 2			as CGFloat
 	var SPAWN_OBSTACLE_DELAY			= 1.4		as CGFloat
 	let OBSTACLE_GAP_SIZE				= 100		as CGFloat
+	var SCREEN_SIZE						= UIScreen.mainScreen().bounds.size
 	
 	/* Bitmask categories */
 	let shipCategory	 : UInt32 = 0x1 << 0
@@ -192,7 +193,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	// =========================================
 	
 	func didBeginContact(contact: SKPhysicsContact) {
-		//gets called automatically when two objects begin contact with each other
 		
 		let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 		
@@ -301,7 +301,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		let spawnBrick = SKAction.runBlock { () -> () in
 			self.spawnBrick()
 		}
-		let delayBrick = SKAction.waitForDuration(1.8)
+		let delayBrick = SKAction.waitForDuration(1.5)
 		let spawnBrickThenDelay = SKAction.sequence([spawnBrick, delayBrick])
 		let spawnBrickThenDelayForeverAndEverForAllEternity = SKAction.repeatActionForever(spawnBrickThenDelay)
 		self.runAction(spawnBrickThenDelayForeverAndEverForAllEternity)
@@ -310,15 +310,22 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	// =========================================
 	
 	func spawnObstacle(moving: Bool) {
+		var width		= SCREEN_SIZE.width
+
 		let barPair = SKNode()
-		barPair.position = CGPointMake(CGRectGetMinX(self.frame) + (barLongTexture.size().width / 4) + CGFloat(arc4random() % UInt32(self.view!.frame.width / 4.5)), CGRectGetMidY(self.frame))
+		barPair.position = CGPointMake(CGRectGetMinX(self.frame) + (barPair.frame.size.width * 2) + CGFloat(arc4random() % UInt32(self.view!.frame.width / 5)), CGRectGetMidY(self.frame))
 		barPair.zPosition = -10
 		
 		let barRight = SKSpriteNode(imageNamed: "Bar1")
 		let barLeft = SKSpriteNode(imageNamed: "Bar3")
 		
-		barLeft.xScale = 0.9
-		barLeft.yScale = 0.9
+		if width == 320 {
+			barLeft.xScale = 0.65
+			barLeft.yScale = 0.65
+		} else {
+			barLeft.xScale = 0.9
+			barLeft.yScale = 0.9
+		}
 		barLeft.position = barPair.position
 		barLeft.physicsBody = SKPhysicsBody(rectangleOfSize: barLeft.size)
 		barLeft.physicsBody?.dynamic = false
@@ -326,8 +333,14 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		barLeft.physicsBody?.collisionBitMask = barCategory
 			barPair.addChild(barLeft)
 		
-		barRight.xScale = 0.9
-		barRight.yScale = 0.9
+		
+		if width == 320 {
+			barRight.xScale = 0.65
+			barRight.yScale = 0.65
+		} else {
+			barRight.xScale = 0.9
+			barRight.yScale = 0.9
+		}
 		barRight.position.y = barLeft.position.y
 		barRight.position.x = barLeft.position.x + barLeft.size.width + OBSTACLE_GAP_SIZE
 		barRight.physicsBody = SKPhysicsBody(rectangleOfSize: barRight.size)
@@ -438,6 +451,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	func gameOver() {
 		self.endgame = true
 		
+		self.physicsWorld.speed = 0.3
+		
 		SPAWN_OBSTACLE_SPEED_FACTOR = 0.03
 		SPAWN_OBSTACLE_DELAY = 3
 		NEAR_BACKGROUND_SPEED_FACTOR = 500
@@ -448,7 +463,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		GameState.sharedInstance.save()
 		
 		ship!.physicsBody!.allowsRotation = true
-		ship?.physicsBody!.applyAngularImpulse(50)
+		ship?.physicsBody!.applyAngularImpulse(0.01)
 		acceleration.invalidate()
 
 	}
@@ -466,11 +481,15 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	}
 	
 	func shakeShipAndShowScore() {
-		let shake = SKAction.shake(ship!.position, duration: 1, amplitudeX: 5, amplitudeY: 5)
+		let shake = SKAction.shake(ship!.position, duration: 1, amplitudeX: 15, amplitudeY: 15)
 		ship!.runAction(shake, completion: { () -> Void in
 			self.SPAWN_OBSTACLE_SPEED_FACTOR = 2
 			self.SPAWN_OBSTACLE_DELAY = 1.4
 			self.NEAR_BACKGROUND_SPEED_FACTOR = 200
+			
+			self.physicsWorld.speed = 1
+			
+			self.ship!.physicsBody!.applyAngularImpulse(10)
 			
 			//gameOver.fontColor	= UIColor(hex: 0xFF007F, alpha: 0.8)
 	
