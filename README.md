@@ -1,4 +1,5 @@
 # SpaceBrix
+Formerly called "IO"
 A retro-style game for iOS written in Swift (using SpriteKit)
 
 Inspired by such masterpieces as Flappy Bird and Swing Copter.
