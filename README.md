@@ -12,4 +12,4 @@ Note: This game uses CoreMotion, so it's definitely not simulator-friendly.
 
 Note #2: There are probably no bricks in space. 
 
-Note #3: Several features still coming up.
+Note #3: Several features (and code cleanups!) still coming up.
