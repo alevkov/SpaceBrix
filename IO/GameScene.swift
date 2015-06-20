@@ -140,7 +140,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	
 	// =========================================
 	
-	override final func didMoveToView(view: SKView) {
+	override func didMoveToView(view: SKView) {
+		self.view?.showsPhysics = true
+		
 		self.setUpParallaxBackground()
 		self.shootStars()
 		
@@ -251,7 +253,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 					case Level.Pro.rawValue:
 					case Level.Pro.rawValue:*/
 					default:
-						println("Started Game")
+						println("")
 				}
 				
 				if GameState.sharedInstance.score % 10 == 0 {
@@ -313,7 +315,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		var width		= SCREEN_SIZE.width
 
 		let barPair = SKNode()
-		barPair.position = CGPointMake(CGRectGetMinX(self.frame) + (barPair.frame.size.width * 2) + CGFloat(arc4random() % UInt32(self.view!.frame.width / 5)), CGRectGetMidY(self.frame))
+		barPair.position = CGPointMake(CGRectGetMinX(self.frame) + (barPair.frame.size.width) + CGFloat(arc4random() % UInt32(self.view!.frame.width / 4)), CGRectGetMidY(self.frame))
 		barPair.zPosition = -10
 		
 		let barRight = SKSpriteNode(imageNamed: "Bar1")
@@ -323,8 +325,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 			barLeft.xScale = 0.65
 			barLeft.yScale = 0.65
 		} else {
-			barLeft.xScale = 0.9
-			barLeft.yScale = 0.9
+			barLeft.xScale = 1
+			barLeft.yScale = 1
 		}
 		barLeft.position = barPair.position
 		barLeft.physicsBody = SKPhysicsBody(rectangleOfSize: barLeft.size)
@@ -338,8 +340,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 			barRight.xScale = 0.65
 			barRight.yScale = 0.65
 		} else {
-			barRight.xScale = 0.9
-			barRight.yScale = 0.9
+			barRight.xScale = 1
+			barRight.yScale = 1
 		}
 		barRight.position.y = barLeft.position.y
 		barRight.position.x = barLeft.position.x + barLeft.size.width + OBSTACLE_GAP_SIZE
@@ -351,7 +353,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 		
 		let gapSize = CGSizeMake(OBSTACLE_GAP_SIZE, barLeft.size.height)
 		let gapNode = SKSpriteNode(color: UIColor.clearColor(), size: gapSize)
-		gapNode.position = CGPointMake(barPair.position.x + barPair.position.x, barPair.position.y)
+		gapNode.position = CGPointMake(barPair.position.x + OBSTACLE_GAP_SIZE, barPair.position.y)
 		gapNode.physicsBody = SKPhysicsBody(rectangleOfSize: gapSize)
 		gapNode.physicsBody?.dynamic = false
 		gapNode.physicsBody?.categoryBitMask = gapCategory
