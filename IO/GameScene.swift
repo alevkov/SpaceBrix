@@ -141,7 +141,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	// =========================================
 	
 	override func didMoveToView(view: SKView) {
-		self.view?.showsPhysics = true
 		
 		self.setUpParallaxBackground()
 		self.shootStars()
