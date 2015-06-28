@@ -484,18 +484,23 @@ final class GameScene: SKScene, SKPhysicsContactDelegate {
 	func shakeShipAndShowScore() {
 		let shake = SKAction.shake(ship!.position, duration: 1, amplitudeX: 15, amplitudeY: 15)
 		ship!.runAction(shake, completion: { () -> Void in
+			
 			self.SPAWN_OBSTACLE_SPEED_FACTOR = 2
 			self.SPAWN_OBSTACLE_DELAY = 1.4
 			self.NEAR_BACKGROUND_SPEED_FACTOR = 200
 			
 			self.physicsWorld.speed = 1
-			
 			self.ship!.physicsBody!.applyAngularImpulse(10)
 			
-			//gameOver.fontColor	= UIColor(hex: 0xFF007F, alpha: 0.8)
-	
-			//gameOverDropShadow.fontColor = UIColor(hex: 0x7F00FF, alpha: 0.8)
-			
+			let highScoreNode = SKLabelNode(text: "BEST: \(GameState.sharedInstance.highScore)")
+			highScoreNode.fontName = "8BIT WONDER Nominal"
+			highScoreNode.fontColor = UIColor(hex: 0xCCFF05, alpha: 0.9)
+			highScoreNode.fontSize = 35
+			highScoreNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - 300)
+			let hsLabelDropShadow = highScoreNode.createDropShadow(3)
+			hsLabelDropShadow.fontColor = UIColor(hex: 0xDDFC77, alpha: 0.8)
+			self.addChild(hsLabelDropShadow)
+			self.addChild(highScoreNode)
 			
 			self.reset.fontName	 = "8BIT WONDER Nominal"
 			self.reset.text		 = "RETRY"
